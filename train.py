@@ -1,6 +1,7 @@
 import numpy as np
 import cv2 as cv
 import os
+from sklearn.model_selection import train_test_split
 
 path= 'myData'
 images= []
@@ -17,7 +18,17 @@ for x in range(0,class_numbers):
         current_image = cv.resize(current_image,(32,32))
         images.append(current_image)
         classNo.append(x)
-    # print(x)
+    print(x)
 
 images = np.array(images)
 classNo = np.array(classNo)
+
+print(images.shape)
+print(classNo.shape)
+
+# splitting the data
+X_train,X_test,Y_train,Y_test = train_test_split(images, classNo, test_size=0.2)
+X_train,X_validation,Y_train,Y_validation = train_test_split(X_train,Y_train, test_size=0.2)
+
+for x in range(0,class_numbers):
+    print(len(np.where(Y_train==x)[0]))
