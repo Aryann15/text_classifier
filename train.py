@@ -2,7 +2,7 @@ import numpy as np
 import cv2 as cv
 import os
 from sklearn.model_selection import train_test_split
-
+from keras.preprocessing.image import ImageDataGenerator
 path= 'myData'
 images= []
 classNo=[]
@@ -39,7 +39,12 @@ def preprocessing(img):
     img = img/255
     return img
 
-img = preprocessing(X_train[30])
-img = cv.resize(img,(300,300))
-cv.imshow('After preprocessing',img)
-cv.waitKey(0)
+X_train = np.array(list(map(preprocessing,X_train)))
+X_test = np.array(list(map(preprocessing,X_test)))
+X_validation = np.array(list(map(preprocessing,X_validation)))
+
+X_train = X_train.reshape(X_train.shape[0],X_train.shape[1],X_train.shape[2],1 )
+X_test = X_test.reshape(X_test.shape[0],X_test.shape[1],X_test.shape[2],1 )
+X_validation = X_validation.reshape(X_validation.shape[0],X_validation.shape[1],X_validation.shape[2],1 )
+
+print(X_train.shape)
