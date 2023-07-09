@@ -32,3 +32,14 @@ X_train,X_validation,Y_train,Y_validation = train_test_split(X_train,Y_train, te
 
 for x in range(0,class_numbers):
     print(len(np.where(Y_train==x)[0]))
+
+def preprocessing(img):
+    img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+    img = cv.equalizeHist(img)
+    img = img/255
+    return img
+
+img = preprocessing(X_train[30])
+img = cv.resize(img,(300,300))
+cv.imshow('After preprocessing',img)
+cv.waitKey(0)
