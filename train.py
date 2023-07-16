@@ -3,6 +3,9 @@ import cv2 as cv
 import os
 from sklearn.model_selection import train_test_split
 from keras.preprocessing.image import ImageDataGenerator
+from keras.utils.np_utils import to_categorical
+
+
 path= 'myData'
 images= []
 classNo=[]
@@ -51,3 +54,8 @@ print(X_train.shape)
 
 dataGen = ImageDataGenerator(width_shift_range=0.1,height_shift_range=0.1,zoom_range=0.2,shear_range=0.1,rotation_range=10)
 dataGen.fit(X_train)
+
+Y_train = to_categorical(Y_train,class_numbers)
+Y_test = to_categorical(Y_test,class_numbers)
+Y_validation = to_categorical (Y_validation,class_numbers)
+
